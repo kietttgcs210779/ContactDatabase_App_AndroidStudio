@@ -3,8 +3,6 @@ package com.example.contactdatabaseappjava;
 import android.provider.BaseColumns;
 
 public final class DatabaseContract {
-    // Để ngăn ai đó vô tình khởi tạo lớp contract,
-    // hãy tạo một constructor private.
     private DatabaseContract() {}
 
     public static class ContactEntry implements BaseColumns {

@@ -16,6 +16,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
     private OnItemClickListener listener;
 
     public interface OnItemClickListener {
+        void onShowDetailClick(int position);
         void onEditClick(int position);
         void onDeleteClick(int position);
     }
@@ -28,6 +29,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
         public TextView nameTextView;
         public TextView phoneTextView;
         public TextView emailTextView;
+        public ImageButton showDetailButton;
         public ImageButton editButton;
         public ImageButton deleteButton;
 
@@ -36,8 +38,21 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
             nameTextView = itemView.findViewById(R.id.name_text_view);
             phoneTextView = itemView.findViewById(R.id.phone_text_view);
             emailTextView = itemView.findViewById(R.id.email_text_view);
+            showDetailButton = itemView.findViewById(R.id.show_detail_button);
             editButton = itemView.findViewById(R.id.edit_button);
             deleteButton = itemView.findViewById(R.id.delete_button);
+
+            showDetailButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onShowDetailClick(position);
+                        }
+                    }
+                }
+            });
 
             editButton.setOnClickListener(new View.OnClickListener() {
                 @Override

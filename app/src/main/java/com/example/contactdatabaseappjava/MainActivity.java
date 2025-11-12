@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -42,6 +43,11 @@ public class MainActivity extends AppCompatActivity {
 
         adapter.setOnItemClickListener(new ContactAdapter.OnItemClickListener() {
             @Override
+            public void onShowDetailClick(int position) {
+                showContactDetailDialog(position);
+            }
+
+            @Override
             public void onEditClick(int position) {
                 showEditContactDialog(position);
             }
@@ -52,8 +58,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton fab = findViewById(R.id.fab_add);
-        fab.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton floatingActionButton = findViewById(R.id.floating_action_button_add);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showAddContactDialog();
@@ -159,6 +165,26 @@ public class MainActivity extends AppCompatActivity {
                 })
                 .setNegativeButton("Cancel", null)
                 .show();
+    }
+
+    private void showContactDetailDialog(final int position) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog_contact_detail, null);
+        builder.setView(dialogView);
+
+        final Contact contact = contactList.get(position);
+        final TextView nameTextView = dialogView.findViewById(R.id.detail_name_text_view);
+        final TextView phoneTextView = dialogView.findViewById(R.id.detail_phone_text_view);
+        final TextView emailTextView = dialogView.findViewById(R.id.detail_email_text_view);
+
+        nameTextView.setText(contact.getName());
+        phoneTextView.setText(contact.getPhone());
+        emailTextView.setText(contact.getEmail());
+
+        builder.setTitle("Contact Details");
+        builder.setPositiveButton("Done", null);
+        builder.create().show();
     }
 
     @Override

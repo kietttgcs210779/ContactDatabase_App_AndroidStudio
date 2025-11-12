@@ -44,6 +44,13 @@
         android:orientation="horizontal">
 
         <ImageButton
+            android:id="@+id/show_detail_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:src="@android:drawable/ic_menu_info_details" />
+        
+        <ImageButton
             android:id="@+id/edit_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
